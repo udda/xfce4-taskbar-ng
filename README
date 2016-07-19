@@ -1,0 +1,69 @@
+Taskbar plugin was created using code from the Window Buttons plugin, written by Nick Schermer
+
+1) Make sure you've got the development packages
+    
+    # Valid for XUbuntu 12.04
+    make devenv
+
+2) Build and install the plugin:
+
+    make
+    sudo make install
+    xfce4-panel -r # restart the panel
+    # It should now be in 'Add New Items' option via panel context menu
+
+3) To remove the plugin
+
+    sudo make uninstall
+
+4) For development
+
+    #uninstall, install, restart the panel
+    make restart
+
+** Usage Notes **
+
+    <Super> + number will activate the pinned application indexed by the
+    number (Super is the so-called 'Windows' key)
+    
+    Right-click on an application icon will give you the option to pin/unpin
+    the app
+    
+    Left-click on the application icon has context dependent behaviour:
+    
+        1) If it is a pinned icon and there are no application instances
+        running, the associated application is started
+        
+        2) If there is a single application instance running, it is raised
+        or lowered, depending on it's current state
+        
+        3) If there are multiple application instances running, a list to
+        the application windows is shown
+
+** Known Issues ***
+    
+    Drag and drop of applications from the applications menu or the desktop
+    does not work (yet)
+    
+    The windows are grouped by wnck class resource name
+    This appears to be a somewhat volatile property as some applications 
+    use different class names depending on the context in which 
+    they're executed (for example, Google Chrome)
+    
+    The pid of the process is extracted via the Wnck API. This is used
+    to track down the command line via the proc/$pid/cmdline entry. Unfortunately
+    the command used to start the application may not be the same as the binary used to
+    drive the application, for example, Thunderbird is started via a script in /usr/bin
+    but it actually driven by an executable under the lib directory,
+    /usr/lib/thunderbird-7.0.1/thunderbird-bin, the shell script is used to setup libpaths, 
+    without which the application cannot run
+
+** Additional Configuration **
+
+    ~/.config/xfce4/panel/taskbar/taskbar.rc
+
+    The taskbar.rc file holds information about pinned applications. This file
+    can be edited to modify the launch command of any pinned application. To apply
+    new settings, save the file, then restart the xfce panel with the terminal command:
+
+    xfce4-panel -r

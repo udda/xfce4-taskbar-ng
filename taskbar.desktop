@@ -1,0 +1,7 @@
+[Xfce Panel]
+Type=X-XFCE-PanelPlugin
+Name=Task Bar
+Comment=Windows 7 Task Bar Mimic
+Icon=preferences-system-windows
+X-XFCE-Module=taskbar
+X-XFCE-Internal=TRUE
